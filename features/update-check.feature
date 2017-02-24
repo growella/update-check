@@ -44,7 +44,7 @@ Feature: Test WP-CLI's update-check command.
 	Scenario: Update Check emails report with --email option
 		Given a WP install
 
-		When I run `wp update-check run --email=test@example.com`
+		When I run `wp update-check run --email=test@example.com --report-current`
 		Then STDOUT should be:
 			"""
 			Success: Report has been sent to test@example.com
@@ -55,3 +55,12 @@ Feature: Test WP-CLI's update-check command.
 
 		When I run `wp update-check run --email=test@example.com --quiet`
 		Then STDOUT should be empty
+
+	Scenario: Update Check only emails if there are updates available
+		Given a fully-updated WP install
+
+		When I run `wp update-check run --email=test@example.com --debug`
+		Then STDERR should contain:
+			"""
+			Everything up to date, no email has been sent.
+			"""

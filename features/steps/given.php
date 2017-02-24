@@ -70,6 +70,14 @@ $steps->Given( '/^a WP multisite (subdirectory|subdomain)?\s?install$/',
 	}
 );
 
+$steps->Given( "/^a fully-updated WP install$/",
+	function ( $world ) {
+		$world->install_wp();
+		$world->proc( 'wp plugin update', array( 'all' => true ) )->run_check();
+		$world->proc( 'wp theme update', array( 'all' => true ) )->run_check();
+	}
+);
+
 $steps->Given( '/^these installed and active plugins:$/',
 	function( $world, $stream ) {
 		$plugins = implode( ' ', array_map( 'trim', explode( PHP_EOL, (string)$stream ) ) );
