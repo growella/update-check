@@ -1,0 +1,33 @@
+{
+    "name": "growella/update-check",
+    "description": "WP-CLI command to automatically check WordPress core and all installed themes and plugins for available updates",
+    "type": "wp-cli-package",
+    "homepage": "https://github.com/growella/update-check",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve Grunwell",
+            "email": "steve@stevegrunwell.com",
+            "homepage": "https://stevegrunwell.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "files": [ "command.php" ]
+    },
+    "require": {
+        "wp-cli/wp-cli": ">=1.1.0"
+    },
+    "require-dev": {
+        "behat/behat": "~2.5",
+        "stevegrunwell/wp-enforcer": "^0.4.2"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "wp-enforcer"
+        ],
+        "post-update-cmd": [
+            "wp-enforcer"
+        ]
+    }
+}
