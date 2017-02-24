@@ -32,6 +32,23 @@ $ wp update-check run --email=johndoe@example.com
 $ wp update-check run --email
 ```
 
+Note that a report will *not* be emailed if everything's up-to-date unless the `--report-current` flag is also passed.
+
+```bash
+# Email John Doe, even if everything is up-to-date.
+$ wp update-check run --email=johndoe@example.com --report-current
+```
+
+
+#### Daily email reports
+
+WP-CLI: Update Check is designed to work well with system cron jobs:
+
+```bash
+# Check for available updates and send them to the engineering team.
+0 8 * * * wp update-check run --email=engineering@example.com --path=/path/to/my/site --quiet
+```
+
 
 ## Installing
 

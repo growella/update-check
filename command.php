@@ -28,6 +28,9 @@ class UpdateCheck extends \WP_CLI_Command {
 	 * [--email=<email>]
 	 * : If provided, email the generated report to the provided email address instead of printing to STDOUT. If the --email option is used but no address is provided, the report will be sent to the site's administrator email address.
 	 *
+	 * [--report-current]
+	 * : Send an email report, even if there are no pending updates.
+	 *
 	 * [--quiet]
 	 * : Silence all output, useful when running as a cron task.
 	 *
@@ -42,10 +45,11 @@ class UpdateCheck extends \WP_CLI_Command {
 	 * @param array $assoc_args Optional. Associative arguments. Default is empty.
 	 */
 	public function run( $args = array(), $assoc_args = array() ) {
-		$report  = esc_html( sprintf( __( 'Update check for %s', 'update-check' ), get_bloginfo( 'url' ) ) );
-		$report .= PHP_EOL . esc_html( sprintf( _x( 'Generated %s', 'report date', 'update-check' ), date( 'r' ) ) );
-		$report .= PHP_EOL . PHP_EOL;
-		$quiet   = isset( $assoc_args['quiet'] );
+		$report      = esc_html( sprintf( __( 'Update check for %s', 'update-check' ), get_bloginfo( 'url' ) ) );
+		$report     .= PHP_EOL . esc_html( sprintf( _x( 'Generated %s', 'report date', 'update-check' ), date( 'r' ) ) );
+		$report     .= PHP_EOL . PHP_EOL;
+		$quiet      = isset( $assoc_args['quiet'] );
+		$send_email = false;
 
 		/*
 		 * WordPress core.
@@ -63,6 +67,7 @@ class UpdateCheck extends \WP_CLI_Command {
 					$version->version
 				) );
 			}
+			$send_email = true;
 		} else {
 			$report .= PHP_EOL . esc_html__( 'WordPress core is up-to-date.' );
 		}
@@ -85,6 +90,7 @@ class UpdateCheck extends \WP_CLI_Command {
 					$plugin->update_version
 				);
 			}
+			$send_email = true;
 		} else {
 			$report .= PHP_EOL . esc_html__( 'All plugins are up-to-date.' );
 		}
@@ -107,6 +113,7 @@ class UpdateCheck extends \WP_CLI_Command {
 					$theme->update_version
 				);
 			}
+			$send_email = true;
 		} else {
 			$report .= PHP_EOL . esc_html__( 'All themes are up-to-date.' );
 		}
@@ -114,6 +121,12 @@ class UpdateCheck extends \WP_CLI_Command {
 
 		// Finally, deliver the report.
 		if ( isset( $assoc_args['email'] ) ) {
+
+			// No need to send an email.
+			if ( ! $send_email ) {
+				return WP_CLI::debug( __( 'Everything up to date, no email has been sent.', 'update-check' ) );
+			}
+
 			$email = $this->send_email( $report, (string) $assoc_args['email'] );
 
 			if ( ! $quiet ) {
