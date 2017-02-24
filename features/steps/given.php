@@ -79,7 +79,7 @@ $steps->Given( '/^these installed and active plugins:$/',
 
 $steps->Given( "/^(plugin|theme) '([^\s]+)' at version '([^\s]+)'$/",
 	function( $world, $type, $plugin, $version ) {
-		$world->proc( "wp $type install $plugin --version=$version" )->run_check();
+		$world->proc( "wp $type install $plugin --version=$version --force" )->run_check();
 	}
 );
 
