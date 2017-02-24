@@ -26,10 +26,13 @@ class UpdateCheck extends \WP_CLI_Command {
 	 * ## OPTIONS
 	 *
 	 * [--email=<email>]
-	 * : If provided, email the generated report to the provided email address instead of printing to STDOUT. If the --email option is used but no address is provided, the report will be sent to the site's administrator email address.
+	 * : If provided, email the generated report to the provided email address
+	 * instead of printing to STDOUT. If the --email option is used but no address
+	 * is provided, the report will be sent to the site's admin_email address.
 	 *
 	 * [--report-current]
-	 * : Send an email report, even if there are no pending updates.
+	 * : Send an email report, even if there are no pending updates. Without this
+	 * flag, reports will only be emailed if there is at least one pending update.
 	 *
 	 * [--quiet]
 	 * : Silence all output, useful when running as a cron task.
@@ -39,7 +42,7 @@ class UpdateCheck extends \WP_CLI_Command {
 	 *   wp update-check run
 	 *   wp update-check run --email=myname@example.com
 	 *   wp update-check run --email=myname@example.com --quiet
-	 *   wp update-check run --email
+	 *   wp update-check run --email --report-current
 	 *
 	 * @param array $args       Optional. Positional arguments. Default is empty.
 	 * @param array $assoc_args Optional. Associative arguments. Default is empty.
