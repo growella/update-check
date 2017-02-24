@@ -1,15 +1,36 @@
-growella/update-check
-=====================
+# WP-CLI: Update Check
 
 WP-CLI command to automatically check WordPress core and all installed themes and plugins for available updates.
 
-[![Build Status](https://travis-ci.org/growella/update-check.svg?branch=master)](https://travis-ci.org/growella/update-check)
+[![Build Status](https://travis-ci.org/growella/update-check.svg?branch=develop)](https://travis-ci.org/growella/update-check)
 
 Quick links: [Using](#using) | [Installing](#installing) | [Contributing](#contributing)
 
 ## Using
 
 Update Check will check WordPress core, plugins, and themes for available updates, then generate a report. This can be displayed within the CLI or, with the optional `--email` argument, sent via email to the site administrator.
+
+
+### Default usage
+
+If you'd like to be able to see what needs updating on your WordPress site at a glance, you can run the following on the command line:
+
+```bash
+$ wp update-check run
+```
+
+
+### Emailed reports
+
+If you'd prefer to generate an email to be sent, use the `--email` option:
+
+```bash
+# Send the report to johndoe@example.com.
+$ wp update-check run --email=johndoe@example.com
+
+# Send the report to the admin_email for the WP site.
+$ wp update-check run --email
+```
 
 
 ## Installing
