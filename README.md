@@ -46,7 +46,7 @@ WP-CLI: Update Check is designed to work well with system cron jobs:
 
 ```bash
 # Check for available updates and send them to the engineering team.
-0 8 * * * wp update-check run --email=engineering@example.com --path=/path/to/my/site --quiet
+0 8 * * * /path/to/wp update-check run --email=engineering@example.com --path=/path/to/my/site --quiet
 ```
 
 
