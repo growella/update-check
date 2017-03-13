@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.1] - 2017-03-13
 
 * Documentation updates, specifically around Cron usage and installation.
+* Fixed bug where the `--report-current` flag wasn't being checked.
 
 
 ## [0.1.0] - 2017-02-24
