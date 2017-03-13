@@ -46,7 +46,7 @@ WP-CLI: Update Check is designed to work well with system cron jobs:
 
 ```bash
 # Check for available updates and send them to the engineering team.
-0 8 * * * wp update-check run --email=engineering@example.com --path=/path/to/my/site --quiet
+0 8 * * * /path/to/wp update-check run --email=engineering@example.com --path=/path/to/my/site --quiet
 ```
 
 
@@ -54,7 +54,7 @@ WP-CLI: Update Check is designed to work well with system cron jobs:
 
 Installing this package requires WP-CLI v1.1.0 or greater. Update to the latest stable release with `wp cli update`.
 
-Once you've done so, you can install this package with `wp package install growella/update-check`.
+Once you've done so, you can install this package with `wp package install git@github.com:growella/update-check.git`.
 
 
 ## Contributing

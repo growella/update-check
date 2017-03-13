@@ -126,7 +126,7 @@ class UpdateCheck extends \WP_CLI_Command {
 		if ( isset( $assoc_args['email'] ) ) {
 
 			// No need to send an email.
-			if ( ! $send_email ) {
+			if ( ! $send_email && ! isset( $assoc_args['report-current'] ) ) {
 				return WP_CLI::debug( __( 'Everything up to date, no email has been sent.', 'update-check' ) );
 			}
 
